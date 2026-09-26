@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual de Usuario | LICWeekly Planner</title>
+  <meta name="description" content="Manual oficial de usuario para LICWeekly Planner. Aprende a usar la arquitectura Local-First, sincronizar entre PC y dispositivos móviles, y organizar tus semanas.">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  
+  <!-- Tipografía moderna Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       SISTEMA DE DISEÑO: LEMON ICE-CREAM THEME
+       ========================================================================== */
+    :root {
+      --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      
+      /* Paleta Lemon Ice-Cream */
+      --lemon-yellow: #fdde35;
+      --lemon-gold: #f5cf22;
+      --lemon-dark-gold: #c99c00;
+      --lime-green: #b4d93d;
+      --lime-dark: #2d5a14;
+      --vanilla-cream: #fdf6e3;
+      --vanilla-light: #fffdf7;
+      --mint-frost: #c9efe7;
+      --mint-dark: #0f4f45;
+      --deep-navy: #122543;
+      --navy-light: #1e3a63;
+      --navy-muted: #4e6382;
+      --border-soft: #f1e4c3;
+      --border-medium: #e5d3a5;
+      --surface-white: #ffffff;
+      
+      --shadow-sm: 0 2px 6px rgba(18, 37, 67, 0.04);
+      --shadow-md: 0 6px 18px rgba(18, 37, 67, 0.06);
+      --shadow-lg: 0 16px 36px rgba(18, 37, 67, 0.09);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+    }
+
+    /* Reset y Base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--vanilla-light);
+      color: var(--deep-navy);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* Fondo decorativo con gradiente suave */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 480px;
+      background: radial-gradient(circle at 50% -20%, rgba(253, 222, 53, 0.18) 0%, rgba(180, 217, 61, 0.08) 45%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Envoltura principal */
+    .manual-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 20px 80px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ==========================================================================
+       CABECERA HERO (HERO HEADER)
+       ========================================================================== */
+    .manual-header {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .header-branding-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand-identity {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand-logo-frame {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      border: 1.5px solid var(--border-soft);
+      box-shadow: 0 4px 12px rgba(253, 222, 53, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      flex-shrink: 0;
+    }
+
+    .brand-logo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .brand-titles h1 {
+      font-family: var(--font-heading);
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--deep-navy);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    .brand-subtitle {
+      font-size: 0.92rem;
+      color: var(--navy-muted);
+      font-weight: 500;
+    }
+
+    .header-badges {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .pill-badge.local-first {
+      background: var(--mint-frost);
+      color: var(--mint-dark);
+      border: 1px solid rgba(15, 79, 69, 0.15);
+    }
+
+    .pill-badge.theme-lemon {
+      background: var(--lemon-yellow);
+      color: var(--deep-navy);
+      border: 1px solid rgba(18, 37, 67, 0.15);
+    }
+
+    .pill-badge.offline-ready {
+      background: var(--vanilla-cream);
+      color: var(--navy-muted);
+      border: 1px solid var(--border-soft);
+    }
+
+    /* Barra de Navegación Rápida / Mini Menú */
+    .quick-nav-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+      padding-top: 8px;
+      border-top: 1px solid var(--border-soft);
+      scrollbar-width: thin;
+    }
+
+    .quick-nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: var(--radius-full);
+      background: var(--vanilla-cream);
+      color: var(--deep-navy);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .quick-nav-link:hover {
+      background: var(--lemon-yellow);
+      border-color: var(--lemon-dark-gold);
+      transform: translateY(-1px);
+    }
+
+    .btn-return-app {
+      margin-left: auto;
+      background: var(--deep-navy);
+      color: #ffffff;
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-return-app:hover {
+      background: var(--navy-light);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* ==========================================================================
+       DISPOSICIÓN PRINCIPAL: CONTENIDO Y NAVEGACIÓN
+       ========================================================================== */
+    .manual-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* Barra Lateral Fija (Sidebar) */
+    .manual-sidebar {
+      position: sticky;
+      top: 24px;
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .sidebar-title {
+      font-family: var(--font-heading);
+      font-size: 0.92rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--deep-navy);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .sidebar-menu a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      color: var(--navy-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+
+    .sidebar-menu a:hover {
+      background: var(--vanilla-cream);
+      color: var(--deep-navy);
+      transform: translateX(3px);
+    }
+
+    .sidebar-menu a span.menu-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--mint-frost);
+      color: var(--mint-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       SECCIONES DEL CONTENIDO PRINCIPAL
+       ========================================================================== */
+    .manual-content {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .content-section {
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 36px 40px;
+      box-shadow: var(--shadow-sm);
+      scroll-margin-top: 30px;
+      position: relative;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--vanilla-cream);
+    }
+
+    .section-badge-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: var(--lemon-yellow);
+      color: var(--deep-navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      box-shadow: 0 3px 8px rgba(253, 222, 53, 0.35);
+    }
+
+    .section-header h2 {
+      font-family: var(--font-heading);
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--deep-navy);
+      letter-spacing: -0.02em;
+    }
+
+    .section-header h3 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--deep-navy);
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: var(--navy-muted);
+      font-size: 0.95rem;
+    }
+
+    p strong {
+      color: var(--deep-navy);
+    }
+
+    /* Listas con viñetas personalizadas */
+    ul.feature-list, ol.steps-list {
+      margin-bottom: 20px;
+      padding-left: 20px;
+      color: var(--navy-muted);
+      font-size: 0.95rem;
+    }
+
+    ul.feature-list li, ol.steps-list li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    ul.feature-list li strong, ol.steps-list li strong {
+      color: var(--deep-navy);
+    }
+
+    /* ==========================================================================
+       TABLAS COMPARATIVAS DE DISEÑO PROFESIONAL
+       ========================================================================== */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    table.pro-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    table.pro-table thead {
+      background-color: var(--vanilla-cream);
+      border-bottom: 2px solid var(--border-medium);
+    }
+
+    table.pro-table th {
+      padding: 14px 18px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: var(--deep-navy);
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+    }
+
+    table.pro-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border-soft);
+      color: var(--navy-muted);
+      vertical-align: top;
+    }
+
+    table.pro-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    table.pro-table tbody tr:hover {
+      background-color: var(--vanilla-light);
+    }
+
+    table.pro-table td strong {
+      color: var(--deep-navy);
+    }
+
+    /* ==========================================================================
+       TARJETAS DE ALERTA Y AVISOS (CALLOUT BOXES)
+       ========================================================================== */
+    .callout-box {
+      border-radius: var(--radius-md);
+      padding: 18px 22px;
+      margin: 20px 0;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      font-size: 0.9rem;
+    }
+
+    .callout-box.note {
+      background-color: #f7fafc;
+      border-left: 4px solid var(--mint-dark);
+      border-top: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .callout-box.tip {
+      background-color: rgba(253, 222, 53, 0.12);
+      border-left: 4px solid var(--lemon-gold);
+      border-top: 1px solid rgba(245, 207, 34, 0.25);
+      border-right: 1px solid rgba(245, 207, 34, 0.25);
+      border-bottom: 1px solid rgba(245, 207, 34, 0.25);
+    }
+
+    .callout-box.warning {
+      background-color: #fffaf0;
+      border-left: 4px solid #dd6b20;
+      border-top: 1px solid #feebc8;
+      border-right: 1px solid #feebc8;
+      border-bottom: 1px solid #feebc8;
+    }
+
+    .callout-icon {
+      font-size: 1.3rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .callout-content {
+      flex: 1;
+      color: var(--deep-navy);
+      line-height: 1.55;
+    }
+
+    .callout-content strong {
+      display: block;
+      font-family: var(--font-heading);
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+    }
+
+    /* ==========================================================================
+       DIAGRAMAS DE FLUJO INTERACTIVOS (HTML / CSS FLOWCHARTS)
+       ========================================================================== */
+    .flow-diagram {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 28px 0;
+      position: relative;
+    }
+
+    .flow-step {
+      background: var(--vanilla-cream);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 20px 18px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .flow-step:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--lemon-gold);
+    }
+
+    .flow-step-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--deep-navy);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flow-step-icon {
+      font-size: 1.6rem;
+    }
+
+    .flow-step-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--deep-navy);
+    }
+
+    .flow-step-desc {
+      font-size: 0.78rem;
+      color: var(--navy-muted);
+      line-height: 1.45;
+    }
+
+    /* ==========================================================================
+       SECCIÓN DE RESOLUCIÓN DE PROBLEMAS (TROUBLESHOOTING CARDS)
+       ========================================================================== */
+    .troubleshoot-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .troubleshoot-card {
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .troubleshoot-header {
+      background: var(--vanilla-cream);
+      padding: 16px 20px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: var(--deep-navy);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .troubleshoot-body {
+      padding: 20px;
+    }
+
+    .troubleshoot-cause {
+      background: rgba(18, 37, 67, 0.03);
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 16px;
+      font-size: 0.88rem;
+    }
+
+    .troubleshoot-cause strong {
+      color: #c53030;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .troubleshoot-solution {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .troubleshoot-solution strong {
+      color: #276749;
+    }
+
+    /* Muestrario de Temas de Color */
+    .themes-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .theme-card {
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .theme-card-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .theme-color-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 0 1px var(--border-medium);
+      flex-shrink: 0;
+    }
+
+    .theme-card-name {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--deep-navy);
+    }
+
+    .theme-card-desc {
+      font-size: 0.82rem;
+      color: var(--navy-muted);
+    }
+
+    /* Botón flotante para volver arriba */
+    .btn-scroll-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--lemon-yellow);
+      color: var(--deep-navy);
+      border: 1px solid var(--lemon-dark-gold);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      z-index: 100;
+    }
+
+    .btn-scroll-top:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+      background: var(--lemon-gold);
+    }
+
+    /* Pie de página */
+    .manual-footer {
+      text-align: center;
+      padding: 40px 20px 20px 20px;
+      color: var(--navy-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-soft);
+      margin-top: 40px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      .manual-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .manual-sidebar {
+        display: none; /* En móviles se usa la barra de navegación superior */
+      }
+
+      .content-section {
+        padding: 24px 20px;
+      }
+
+      .manual-header {
+        padding: 24px 20px;
+      }
+    }
+
+    /* Optimización de Impresión */
+    @media print {
+      body {
+        background: #ffffff;
+        color: #000000;
+      }
+      .manual-sidebar, .quick-nav-bar, .btn-return-app, .btn-scroll-top {
+        display: none;
+      }
+      .manual-layout {
+        grid-template-columns: 1fr;
+      }
+      .content-section {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        page-break-inside: avoid;
+        margin-bottom: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="manual-wrapper">
+
+    <!-- CABECERA HERO PRINCIPAL -->
+    <header class="manual-header">
+      <div class="header-branding-bar">
+        <div class="brand-identity">
+          <div class="brand-logo-frame">
+            <img src="img/logo.png" alt="LICWeekly Planner Logo">
+          </div>
+          <div class="brand-titles">
+            <h1>LICWeekly Planner</h1>
+            <p class="brand-subtitle">Manual de Usuario Oficial &amp; Guía de Sincronización</p>
+          </div>
+        </div>
+
+        <div class="header-badges">
+          <span class="pill-badge local-first">🔒 Local-First</span>
+          <span class="pill-badge theme-lemon">🍋 Lemon Ice-Cream Edition</span>
+          <span class="pill-badge offline-ready">⚡ 100% Offline PWA</span>
+        </div>
+      </div>
+
+      <!-- Barra de navegación rápida -->
+      <nav class="quick-nav-bar" aria-label="Navegación de secciones">
+        <a href="#filosofia" class="quick-nav-link">1. Filosofía</a>
+        <a href="#primeros-pasos" class="quick-nav-link">2. Primeros Pasos</a>
+        <a href="#pc-vs-movil" class="quick-nav-link">3. PC vs Móvil</a>
+        <a href="#descargar-json" class="quick-nav-link">4. Botón Descargar</a>
+        <a href="#sincronizacion" class="quick-nav-link">5. Sincronización</a>
+        <a href="#troubleshooting" class="quick-nav-link">6. Resolución de Problemas</a>
+        <a href="#herramientas" class="quick-nav-link">7. Herramientas</a>
+        <a href="index.html" class="btn-return-app">
+          <span>Abrir Planificador</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </nav>
+    </header>
+
+    <!-- DISPOSICIÓN PRINCIPAL -->
+    <div class="manual-layout">
+
+      <!-- BARRA LATERAL FIJA (SIDEBAR) -->
+      <aside class="manual-sidebar">
+        <h3 class="sidebar-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          Contenido
+        </h3>
+        <ul class="sidebar-menu">
+          <li><a href="#filosofia"><span class="menu-num">1</span> Filosofía Local-First</a></li>
+          <li><a href="#primeros-pasos"><span class="menu-num">2</span> Primeros Pasos</a></li>
+          <li><a href="#pc-vs-movil"><span class="menu-num">3</span> PC vs Móvil / Tableta</a></li>
+          <li><a href="#descargar-json"><span class="menu-num">4</span> Botón "Descargar JSON"</a></li>
+          <li><a href="#sincronizacion"><span class="menu-num">5</span> Guía de Sincronización</a></li>
+          <li><a href="#troubleshooting"><span class="menu-num">6</span> Problemas Frecuentes</a></li>
+          <li><a href="#herramientas"><span class="menu-num">7</span> Funciones &amp; Herramientas</a></li>
+        </ul>
+      </aside>
+
+      <!-- CONTENIDO DE LAS SECCIONES -->
+      <main class="manual-content">
+
+        <!-- SECCIÓN 1: FILOSOFÍA LOCAL-FIRST -->
+        <section id="filosofia" class="content-section">
+          <div class="section-header">
+            <div class="section-badge-icon">🔒</div>
+            <h2>1. Filosofía Local-First: ¿Cómo se guardan tus datos?</h2>
+          </div>
+
+          <p>
+            A diferencia de los calendarios corporativos tradicionales que envían tu agenda a servidores remotos de terceros, <strong>LICWeekly Planner</strong> opera bajo el paradigma de arquitectura <strong>Local-First</strong> (lo local es primero).
+          </p>
+
+          <div class="callout-box tip">
+            <div class="callout-icon">💡</div>
+            <div class="callout-content">
+              <strong>Tus datos te pertenecen al 100%</strong>
+              No existe un servidor central, no necesitas crear cuentas con correos o contraseñas, y no hay rastreadores publicitarios ni telemetría. Tu agenda nunca saldrá de tu dispositivo sin tu autorización expresa.
+            </div>
+          </div>
+
+          <ul class="feature-list">
+            <li><strong>Toda tu agenda vive en un único archivo <code>.json</code>:</strong> Perfiles, actividades semanales, categorías, prioridades, notas de productividad y hábitos diarios se guardan estructurados en texto plano JSON estándar.</li>
+            <li><strong>Disponibilidad 100% Offline:</strong> Gracias a su tecnología de Progressive Web App (PWA) con Service Worker, la aplicación funciona de forma inmediata sin conexión a internet en cualquier lugar del mundo.</li>
+            <li><strong>Portabilidad eterna:</strong> Si la aplicación dejara de existir en el futuro, tus archivos <code>.json</code> seguirán siendo legibles en cualquier editor de texto simple (Bloc de Notas, VS Code, TextEdit).</li>
+          </ul>
+        </section>
+
+        <!-- SECCIÓN 2: PRIMEROS PASOS -->
+        <section id="primeros-pasos" class="content-section">
+          <div class="section-header">
+            <div class="section-badge-icon">🚀</div>
+            <h2>2. Primeros Pasos: Creación y Conexión de Agenda</h2>
+          </div>
+
+          <p>Al abrir la aplicación en tu navegador, tienes dos formas principales de comenzar a trabajar:</p>
+
+          <ol class="steps-list">
+            <li>
+              <strong>Crear Nueva Agenda:</strong>
+              <p>Presiona el botón dorado <strong>"+ Nueva Agenda"</strong> en la cabecera. Se desplegará un formulario donde podrás ingresar tu nombre, fecha de nacimiento (el planificador te felicitará en tu día con un banner animado festivo) y elegir tu paleta de color favorita. En computadoras de escritorio, se abrirá el explorador del sistema para que elijas la carpeta donde deseas guardar tu archivo (por ejemplo, en <em>Documentos</em> o en tu carpeta local sincronizada con <em>Google Drive</em> o <em>OneDrive</em>).</p>
+            </li>
+            <li>
+              <strong>Conectar Agenda Existente:</strong>
+              <p>Si ya posees un archivo <code>.json</code> creado con anterioridad, pulsa en <strong>"Conectar Agenda"</strong> y selecciónalo. Toda tu semana, prioridades y temas se cargarán automáticamente al instante.</p>
+            </li>
+          </ol>
+        </section>
+
+        <!-- SECCIÓN 3: PC VS MÓVIL / TABLETA -->
+        <section id="pc-vs-movil" class="content-section">
+          <div class="section-header">
+            <div class="section-badge-icon">💻</div>
+            <h2>3. Diferencias entre Versión de PC y Versión Móvil/Tableta</h2>
+          </div>
+
+          <p>
+            Es fundamental comprender que los navegadores web en ordenadores de escritorio y en dispositivos móviles (teléfonos inteligentes y tabletas) tienen diferentes permisos otorgados por sus sistemas operativos:
+          </p>
+
+          <!-- TABLA COMPARATIVA PROFESIONAL -->
+          <div class="table-container">
+            <table class="pro-table">
+              <thead>
+                <tr>
+                  <th>Característica</th>
+                  <th>En PC / Laptop (Chrome, Edge, Brave, Opera)</th>
+                  <th>En Móvil / Tableta (iOS, iPadOS, Android)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>API de Acceso a Archivos</strong></td>
+                  <td><strong>File System Access API</strong> directa.</td>
+                  <td><strong>Sandbox de Seguridad Restringido</strong> (sin acceso directo al disco).</td>
+                </tr>
+                <tr>
+                  <td><strong>Guardado al editar tareas</strong></td>
+                  <td>Guarda <strong>automáticamente en el archivo <code>.json</code></strong> de tu disco en tiempo real.</td>
+                  <td>Guarda de forma aislada en la memoria interna del navegador (<strong>IndexedDB / localStorage</strong>).</td>
+                </tr>
+                <tr>
+                  <td><strong>Indicador de Estado</strong></td>
+                  <td>Muestra <code>Sincronizado: archivo.json</code> con punto verde.</td>
+                  <td>Muestra <code>Almacenamiento Local (Móvil)</code> con indicador ámbar.</td>
+                </tr>
+                <tr>
+                  <td><strong>Botón "Descargar JSON"</strong></td>
+                  <td>Opcional (para respaldos preventivos).</td>
+                  <td><strong>Esencial</strong> para extraer tus modificaciones y llevarlas a tu PC.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout-box note">
+            <div class="callout-icon">ℹ️</div>
+            <div class="callout-content">
+              <strong>¿Por qué ocurre esta diferencia?</strong>
+              En iPhone, iPad y teléfonos Android, los navegadores operan dentro de una "caja de arena" (sandbox) por motivos de seguridad del sistema operativo, impidiendo que cualquier sitio web modifique archivos locales de forma desatendida.
+            </div>
+          </div>
+        </section>
+
+        <!-- SECCIÓN 4: EL BOTÓN DESCARGAR JSON -->
+        <section id="descargar-json" class="content-section">
+          <div class="section-header">
+            <div class="section-badge-icon">💾</div>
+            <h2>4. El Botón "Descargar JSON": Qué es y para qué sirve</h2>
+          </div>
+
+          <p>
+            En la barra superior de acciones verás un botón denominado <strong>"Descargar JSON"</strong> (en pantallas pequeñas se ubica cómodamente dentro del menú hamburguesa ☰).
+          </p>
+
+          <h3>¿Cuál es su función técnica?</h3>
+          <p>
+            Toma <strong>todo el estado integral de tu planificador</strong> (tus tareas de la semana, las metas prioritarias, las notas del Modo Libreta, la cuadrícula de hábitos y la paleta de color activa) y genera un archivo descargable con el nombre:
+          </p>
+
+          <div style="background: var(--vanilla-cream); border: 1.5px dashed var(--border-medium); border-radius: var(--radius-sm); padding: 12px 18px; font-family: monospace; font-size: 0.95rem; font-weight: bold; color: var(--deep-navy); margin-bottom: 20px;">
+            agenda_[tu_nombre].json
+          </div>
+
+          <h3>¿Cuándo debes utilizarlo?</h3>
+          <ul class="feature-list">
+            <li><strong>En móviles y tabletas:</strong> Cada vez que termines de programar tus actividades y quieras llevar tu información actualizada a tu computadora.</li>
+            <li><strong>En computadoras (PC/Mac):</strong> Siempre que desees guardar una copia de seguridad antes de hacer limpieza o mantenimiento a tu equipo.</li>
+          </ul>
+        </section>
+
+        <!-- SECCIÓN 5: GUÍA DE SINCRONIZACIÓN -->
+        <section id="sincronizacion" class="content-section">
+          <div class="section-header">
+            <div class="section-badge-icon">🔄</div>
+            <h2>5. Guía de Sincronización entre Dispositivos</h2>
+          </div>
+
+          <p>Aprende el flujo recomendado para mover tu agenda entre tu ordenador de escritorio y tus dispositivos móviles sin depender de servidores de terceros:</p>
+
+          <!-- CASO A -->
+          <h3>Caso A: Modificas en tu PC y quieres ver la agenda en tu Móvil/Tableta</h3>
+          <p>Ideal cuando planificas la semana en tu oficina o casa y quieres llevar el horario en tu teléfono:</p>
+
+          <div class="flow-diagram">
+            <div class="flow-step">
+              <span class="flow-step-number">1</span>
+              <span class="flow-step-icon">💻</span>
+              <span class="flow-step-title">Editas en tu PC</span>
+              <span class="flow-step-desc">Tu archivo .json se guarda en tiempo real en tu disco duro.</span>
+            </div>
+            <div class="flow-step">
+              <span class="flow-step-number">2</span>
+              <span class="flow-step-icon">☁️</span>
+              <span class="flow-step-title">Sincroniza en Nube</span>
+              <span class="flow-step-desc">Google Drive, OneDrive o iCloud sincronizan el archivo local.</span>
+            </div>
+            <div class="flow-step">
+              <span class="flow-step-number">3</span>
+              <span class="flow-step-icon">📲</span>
+              <span class="flow-step-title">Descarga en Móvil</span>
+              <span class="flow-step-desc">En tu teléfono, descarga el archivo en la memoria interna (Descargas).</span>
+            </div>
+            <div class="flow-step">
+              <span class="flow-step-number">4</span>
+              <span class="flow-step-icon">✨</span>
+              <span class="flow-step-title">Conectar Agenda</span>
+              <span class="flow-step-desc">Abre el planificador en el móvil y presiona 'Conectar Agenda'.</span>
+            </div>
+          </div>
+
+          <!-- CASO B -->
+          <h3 style="margin-top: 36px;">Caso B: Modificas en tu Móvil/Tableta y quieres ver los cambios en tu PC</h3>
+          <p>Ideal cuando estuviste fuera y completaste o creaste tareas desde tu teléfono:</p>
+
+          <div class="flow-diagram">
+            <div class="flow-step">
+              <span class="flow-step-number">1</span>
+              <span class="flow-step-icon">📱</span>
+              <span class="flow-step-title">Editas en el Móvil</span>
+              <span class="flow-step-desc">Registras cambios en el planificador desde tu navegador móvil.</span>
+            </div>
+            <div class="flow-step">
+              <span class="flow-step-number">2</span>
+              <span class="flow-step-icon">📥</span>
+              <span class="flow-step-title">Descargar JSON</span>
+              <span class="flow-step-desc">Presionas el botón 'Descargar JSON' para guardar la copia local.</span>
+            </div>
+            <div class="flow-step">
+              <span class="flow-step-number">3</span>
+              <span class="flow-step-icon">📤</span>
+              <span class="flow-step-title">Transfiere a PC</span>
+              <span class="flow-step-desc">Subes el archivo a tu nube o te lo envías por chat/correo.</span>
+            </div>
+            <div class="flow-step">
+              <span class="flow-step-number">4</span>
+              <span class="flow-step-icon">🖥️</span>
+              <span class="flow-step-title">Actualiza en PC</span>
+              <span class="flow-step-desc">Reemplazas el archivo en PC o usas 'Conectar Agenda'.</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECCIÓN 6: RESOLUCIÓN DE PROBLEMAS -->
+        <section id="troubleshooting" class="content-section">
+          <div class="section-header">
+            <div class="section-badge-icon">🛠️</div>
+            <h2>6. Resolución de Inconvenientes Frecuentes (Troubleshooting)</h2>
+          </div>
+
+          <div class="troubleshoot-grid">
+
+            <!-- PROBLEMA 1 -->
+            <div class="troubleshoot-card">
+              <div class="troubleshoot-header">
+                <span>⚠️ Problema 1: En Google Drive o iCloud el archivo .json sale atenuado o dice "archivo no válido"</span>
+              </div>
+              <div class="troubleshoot-body">
+                <div class="troubleshoot-cause">
+                  <strong>Causa: Enlaces virtuales en la nube ("stub files")</strong>
+                  Las apps de almacenamiento en la nube en dispositivos móviles no guardan los archivos físicamente en el teléfono por defecto, sino que muestran un enlace simbólico. Al no haber bytes reales en el disco interno, el navegador no puede leerlos.
+                </div>
+                <div class="troubleshoot-solution">
+                  <strong>✅ Solución:</strong>
+                  <ul class="feature-list" style="margin-top: 8px;">
+                    <li><strong>En Android con Google Drive:</strong> Abre la app de Google Drive, busca el archivo <code>.json</code>, presiona los tres puntos (⋮) y selecciona <strong>Descargar</strong>. Luego ve a LICWeekly Planner, pulsa <em>Conectar Agenda</em> y elígelo desde la carpeta física <em>Descargas</em>.</li>
+                    <li><strong>En iPhone / iPad (iOS):</strong> En la app <em>Archivos</em>, si ves un icono de nubecita ☁️ junto al archivo, tócalo para forzar su descarga a la memoria interna antes de seleccionarlo en el navegador.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- PROBLEMA 2 -->
+            <div class="troubleshoot-card">
+              <div class="troubleshoot-header">
+                <span>🔄 Problema 2: Los cambios hechos en la tableta no aparecen en mi PC</span>
+              </div>
+              <div class="troubleshoot-body">
+                <div class="troubleshoot-cause">
+                  <strong>Causa: Protección Sandbox móvil</strong>
+                  El navegador móvil no tiene permiso del sistema operativo para sobreescribir silenciosamente archivos locales. Los cambios quedan en la memoria interna temporal del navegador.
+                </div>
+                <div class="troubleshoot-solution">
+                  <strong>✅ Solución:</strong> En tu tableta, pulsa siempre en el botón <strong>Descargar JSON</strong> antes de cambiarte a la computadora. Luego reemplaza o abre ese nuevo archivo en tu PC.
+                </div>
+              </div>
+            </div>
+
+            <!-- PROBLEMA 3 -->
+            <div class="troubleshoot-card">
+              <div class="troubleshoot-header">
+                <span>🔑 Problema 3: Aparece un aviso de "Reautorizar" o "Permiso requerido" en PC</span>
+              </div>
+              <div class="troubleshoot-body">
+                <div class="troubleshoot-cause">
+                  <strong>Causa: Expiración de seguridad del navegador</strong>
+                  Por normas de Google Chrome y Microsoft Edge, cuando cierras la ventana del navegador o reinicias tu equipo, los permisos de escritura en tu disco duro caducan para proteger tus documentos.
+                </div>
+                <div class="troubleshoot-solution">
+                  <strong>✅ Solución:</strong> En la barra de estado verás el botón <strong>Reautorizar</strong>. Haz clic sobre él y acepta el diálogo nativo del navegador que pregunta: <em>"¿Permitir guardar cambios?"</em>. El punto de estado volverá a ponerse verde.
+                </div>
+              </div>
+            </div>
+
+            <!-- PROBLEMA 4 -->
+            <div class="troubleshoot-card">
+              <div class="troubleshoot-header">
+                <span>💾 Problema 4: ¿Por qué no se utilizan bases de datos SQLite o archivos .db?</span>
+              </div>
+              <div class="troubleshoot-body">
+                <div class="troubleshoot-cause">
+                  <strong>Decisión de diseño: Máxima compatibilidad y control</strong>
+                  El formato JSON fue elegido deliberadamente por ser liviano, universal y 100% transparente para el usuario.
+                </div>
+                <div class="troubleshoot-solution">
+                  <strong>✅ Ventajas de JSON:</strong>
+                  <ul class="feature-list" style="margin-top: 8px;">
+                    <li><strong>Sin motores pesados:</strong> No requiere cargar motores binarios WebAssembly complejos que ralentizan navegadores móviles antiguos.</li>
+                    <li><strong>Transparencia:</strong> Puedes abrir tu archivo en cualquier bloc de notas y ver tus tareas intactas.</li>
+                    <li><strong>Facilidad de respaldo:</strong> Pesa pocos kilobytes y es fácil de transferir por cualquier medio.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- SECCIÓN 7: GUÍA RÁPIDA DE HERRAMIENTAS -->
+        <section id="herramientas" class="content-section">
+          <div class="section-header">
+            <div class="section-badge-icon">⚡</div>
+            <h2>7. Guía Rápida de Funciones y Herramientas</h2>
+          </div>
+
+          <h3>🗓️ Cuadrícula de 7 Días (Lunes a Domingo)</h3>
+          <ul class="feature-list">
+            <li><strong>Añadir tarea rápida:</strong> Pulsa el botón <code>+</code> en la cabecera del día deseado.</li>
+            <li><strong>Arrastrar y Soltar (Drag &amp; Drop):</strong> Mueve cualquier tarjeta de un día a otro con tu ratón o dedo para reprogramarla de forma instantánea.</li>
+            <li><strong>Marcar como completada:</strong> Haz clic en la casilla circular. La tarea se atenuará y la barra de progreso semanal contabilizará el avance.</li>
+            <li><strong>Prioridades visuales:</strong> Cada actividad cuenta con un indicador de prioridad (verde para baja, ámbar para media, rojo para alta).</li>
+          </ul>
+
+          <h3>📖 Modo Libreta (Hoja Izquierda)</h3>
+          <p>Inspirado en agendas físicas de productividad, accesible pulsando el botón <strong>Modo Libreta</strong>:</p>
+          <ul class="feature-list">
+            <li><strong>Foco Semanal:</strong> Espacio para definir la meta directriz de tus 7 días.</li>
+            <li><strong>Top Prioridades:</strong> Lista de objetivos de alto impacto con casillas interactivas.</li>
+            <li><strong>Backlog General:</strong> Tareas pendientes sin día asignado. ¡Puedes arrastrarlas directamente hacia cualquier día de la semana!</li>
+            <li><strong>Rastreador de Hábitos (Habit Tracker):</strong> Cuadrícula semanal para marcar hábitos diarios y construir disciplina constante.</li>
+          </ul>
+
+          <h3>🎨 Paletas de Color Oficiales (6 Temas)</h3>
+          <p>Cambia el ambiente visual de la aplicación en cualquier momento desde el selector superior:</p>
+
+          <div class="themes-showcase">
+            <div class="theme-card" style="border-left: 4px solid #f5cf22;">
+              <div class="theme-card-top">
+                <span class="theme-color-dot" style="background: #f5cf22;"></span>
+                <span class="theme-card-name">Lemon Ice-Cream 🍋🍦</span>
+              </div>
+              <p class="theme-card-desc">Refrescante combinación de helado artesanal con amarillo limón, crema y azul marino.</p>
+            </div>
+
+            <div class="theme-card" style="border-left: 4px solid #2b6cb0;">
+              <div class="theme-card-top">
+                <span class="theme-color-dot" style="background: #2b6cb0;"></span>
+                <span class="theme-card-name">Nordic Blue ❄️</span>
+              </div>
+              <p class="theme-card-desc">Azul nórdico profesional, limpio y equilibrado para máxima concentración.</p>
+            </div>
+
+            <div class="theme-card" style="border-left: 4px solid #2d6a4f;">
+              <div class="theme-card-top">
+                <span class="theme-color-dot" style="background: #2d6a4f;"></span>
+                <span class="theme-card-name">Forest &amp; Moss 🌲</span>
+              </div>
+              <p class="theme-card-desc">Tonalidades verdes salvia y bosque que transmiten serenidad y frescura.</p>
+            </div>
+
+            <div class="theme-card" style="border-left: 4px solid #ea580c;">
+              <div class="theme-card-top">
+                <span class="theme-color-dot" style="background: #ea580c;"></span>
+                <span class="theme-card-name">Sunset Coral 🌅</span>
+              </div>
+              <p class="theme-card-desc">Tonos cálidos ámbar, terracota y anaranjados llenos de energía.</p>
+            </div>
+
+            <div class="theme-card" style="border-left: 4px solid #9333ea;">
+              <div class="theme-card-top">
+                <span class="theme-color-dot" style="background: #9333ea;"></span>
+                <span class="theme-card-name">Lavender Mist 🪻</span>
+              </div>
+              <p class="theme-card-desc">Púrpuras y lilas suaves con estética botánica relajante.</p>
+            </div>
+
+            <div class="theme-card" style="border-left: 4px solid #3b82f6; background: #151c2c; color: #ffffff;">
+              <div class="theme-card-top">
+                <span class="theme-color-dot" style="background: #3b82f6;"></span>
+                <span class="theme-card-name" style="color: #ffffff;">Midnight Dark 🌙</span>
+              </div>
+              <p class="theme-card-desc" style="color: #94a3b8;">Modo oscuro profundo de alto contraste adaptativo para trabajar con poca luz.</p>
+            </div>
+          </div>
+
+          <h3>🖨️ Atajos de Teclado &amp; Impresión</h3>
+          <p>
+            Presiona <kbd style="background: var(--vanilla-cream); border: 1px solid var(--border-medium); border-radius: 4px; padding: 2px 6px; font-weight: bold;">Ctrl + P</kbd> (o <kbd style="background: var(--vanilla-cream); border: 1px solid var(--border-medium); border-radius: 4px; padding: 2px 6px; font-weight: bold;">Cmd + P</kbd> en Mac) para generar un PDF o imprimir tu semana completa. La hoja de estilos de impresión eliminará menús y botones, dejando una copia limpia en 7 columnas horizontales lista para tu libreta de papel.
+          </p>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- BOTÓN FLOTANTE VOLVER ARRIBA -->
+    <a href="#" class="btn-scroll-top" title="Volver al inicio de la página" aria-label="Volver arriba">
+      ▲
+    </a>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="manual-footer">
+      <p><strong>LICWeekly Planner</strong> • Aplicación de Productividad Personal Local-First • Sin publicidad ni telemetría</p>
+      <p style="margin-top: 6px; font-size: 0.8rem;">Desarrollado con estándares web abiertos (HTML5, Vanilla CSS &amp; JavaScript ES6+)</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>

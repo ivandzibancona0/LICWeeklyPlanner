@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3182ce"/>
+      <stop offset="100%" stop-color="#1e4e8c"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Fondo redondeado suave -->
+  <rect width="512" height="512" rx="110" fill="url(#bgGrad)"/>
+
+  <!-- Calendario central con sombra -->
+  <g filter="url(#shadow)">
+    <!-- Cuerpo del calendario -->
+    <rect x="86" y="110" width="340" height="310" rx="36" fill="#ffffff"/>
+    
+    <!-- Barra superior del calendario -->
+    <path d="M 86 146 Q 86 110 122 110 L 390 110 Q 426 110 426 146 L 426 186 L 86 186 Z" fill="url(#accentGrad)"/>
+    
+    <!-- Anillas superiores -->
+    <rect x="156" y="80" width="28" height="50" rx="14" fill="#0f2b48"/>
+    <rect x="328" y="80" width="28" height="50" rx="14" fill="#0f2b48"/>
+    
+    <!-- Checkmark de tarea completada en el centro -->
+    <path d="M 170 296 L 230 356 L 346 230" fill="none" stroke="#2b6cb0" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Puntos de días de la semana decorativos -->
+    <circle cx="160" cy="226" r="10" fill="#cbd5e1"/>
+    <circle cx="210" cy="226" r="10" fill="#cbd5e1"/>
+    <circle cx="260" cy="226" r="10" fill="#cbd5e1"/>
+    <circle cx="310" cy="226" r="10" fill="#cbd5e1"/>
+    <circle cx="360" cy="226" r="10" fill="#cbd5e1"/>
+  </g>
+</svg>

@@ -1,0 +1,53 @@
+# Archivos de datos personales y copias de seguridad de la agenda
+*.bak
+*.backup
+agenda*.json
+!manifest.json
+
+# Entorno y variables secretas
+.env
+.env.local
+.env.*.local
+
+# Dependencias y gestores de paquetes (en caso de usar Node/npm en el futuro)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Compilados y temporales
+dist/
+build/
+out/
+.cache/
+.temp/
+temp/
+tmp/
+
+# Editores y Entornos de Desarrollo (IDEs)
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Sistema Operativo - Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Sistema Operativo - macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Sistema Operativo - Linux
+.directory
+.fuse_hidden*

@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="nordic">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LICWeekly Planner</title>
+  <meta name="description" content="LICWeekly Planner - Gestión de tareas y agenda semanal con privacidad Local-First y sistema de recordatorios inteligentes.">
+  <meta name="theme-color" content="#2b6cb0">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="app-wrapper">
+
+    <!-- Banner festivo de Cumpleaños -->
+    <div id="birthdayBanner" class="birthday-banner" role="status">
+      🎂 ¡Hoy es tu día! ¡Feliz Cumpleaños! Que tengas una semana maravillosa y llena de éxitos. 🎉✨
+    </div>
+
+    <!-- Cabecera y Saludo Personalizado -->
+    <header>
+      <div class="header-top-row">
+        <div class="header-brand-wrap">
+          <div class="app-logo-badge" title="LICWeekly Planner">
+            <img src="img/logo.png" alt="LICWeekly Planner Logo" class="app-logo-img">
+          </div>
+          <div class="header-user-info">
+            <div class="app-brand-row">
+              <span class="app-brand-name">LICWeekly Planner</span>
+              <span class="app-brand-pill">Local-First</span>
+            </div>
+            <h1 class="greeting-title" id="userGreeting">
+              ¡Hola! Bienvenido a LICWeekly Planner
+            </h1>
+            <p class="greeting-subtitle" id="userSubtitle">
+              Crea una agenda o conecta tu archivo local para organizar tu semana.
+            </p>
+          </div>
+        </div>
+
+        <!-- Botón de Menú Hamburguesa (visible solo en móviles) -->
+        <button id="btnHamburger" class="btn-hamburger" aria-label="Abrir menú de opciones" aria-expanded="false">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+
+      <div class="header-actions" id="headerActions">
+        <!-- Selector rápido de Tema Personalizado con Iconos Vectoriales -->
+        <div class="custom-theme-dropdown" id="themeDropdown">
+          <button type="button" class="theme-dropdown-trigger" id="themeDropdownTrigger" aria-haspopup="listbox" aria-expanded="false" title="Cambiar Paleta de Colores">
+            <span class="theme-trigger-left">
+              <span class="theme-icon-slot" id="themeCurrentIcon">
+                <svg class="theme-svg-icon icon-nordic" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="12" y1="2" x2="12" y2="22"/>
+                  <line x1="20" y1="12" x2="4" y2="12"/>
+                  <line x1="17.65" y1="6.35" x2="6.35" y2="17.65"/>
+                  <line x1="17.65" y1="17.65" x2="6.35" y2="6.35"/>
+                </svg>
+              </span>
+              <span class="theme-label-slot" id="themeCurrentLabel">Nordic Blue</span>
+            </span>
+            <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <ul class="theme-dropdown-menu" id="themeDropdownMenu" role="listbox" aria-label="Temas de color">
+            <li class="theme-dropdown-item selected" role="option" data-theme="nordic" aria-selected="true">
+              <span class="theme-item-icon">
+                <svg class="theme-svg-icon icon-nordic" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="12" y1="2" x2="12" y2="22"/>
+                  <line x1="20" y1="12" x2="4" y2="12"/>
+                  <line x1="17.65" y1="6.35" x2="6.35" y2="17.65"/>
+                  <line x1="17.65" y1="17.65" x2="6.35" y2="6.35"/>
+                </svg>
+              </span>
+              <span class="theme-item-label">Nordic Blue</span>
+            </li>
+            <li class="theme-dropdown-item" role="option" data-theme="forest" aria-selected="false">
+              <span class="theme-item-icon">
+                <svg class="theme-svg-icon icon-forest" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 2L4 12h5l-4 7h14l-4-7h5L12 2z"/>
+                  <line x1="12" y1="19" x2="12" y2="22"/>
+                </svg>
+              </span>
+              <span class="theme-item-label">Forest & Moss</span>
+            </li>
+            <li class="theme-dropdown-item" role="option" data-theme="sunset" aria-selected="false">
+              <span class="theme-item-icon">
+                <svg class="theme-svg-icon icon-sunset" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 10a4 4 0 0 0-4 4h8a4 4 0 0 0-4-4z"/>
+                  <line x1="12" y1="4" x2="12" y2="7"/>
+                  <line x1="4.93" y1="7.93" x2="7.05" y2="10.05"/>
+                  <line x1="19.07" y1="7.93" x2="16.95" y2="10.05"/>
+                  <line x1="2" y1="18" x2="22" y2="18"/>
+                  <line x1="4" y1="21" x2="20" y2="21"/>
+                </svg>
+              </span>
+              <span class="theme-item-label">Sunset Coral</span>
+            </li>
+            <li class="theme-dropdown-item" role="option" data-theme="lavender" aria-selected="false">
+              <span class="theme-item-icon">
+                <svg class="theme-svg-icon icon-lavender" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3c-1.5 2-1.5 5 0 7 1.5-2 1.5-5 0-7z"/>
+                  <path d="M8 8c-2 1.5-2 4.5 0 6 2-1.5 2-4.5 0-6z"/>
+                  <path d="M16 8c-2 1.5-2 4.5 0 6 2-1.5 2-4.5 0-6z"/>
+                  <line x1="12" y1="14" x2="12" y2="22"/>
+                  <path d="M12 18c-2-1-4 0-5 2"/>
+                </svg>
+              </span>
+              <span class="theme-item-label">Lavender Mist</span>
+            </li>
+            <li class="theme-dropdown-item" role="option" data-theme="midnight" aria-selected="false">
+              <span class="theme-item-icon">
+                <svg class="theme-svg-icon icon-midnight" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+              </span>
+              <span class="theme-item-label">Midnight Dark</span>
+            </li>
+            <li class="theme-dropdown-item" role="option" data-theme="lemon" aria-selected="false">
+              <span class="theme-item-icon">
+                <svg class="theme-svg-icon icon-lemon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m7 11 4.08 10.35a1 1 0 0 0 1.84 0L17 11"/>
+                  <path d="M17 11A5 5 0 0 0 7 11"/>
+                  <path d="M12 6c.5-1.5 2-2.5 3.5-2.5 0 1.5-1 3-2.5 3.5"/>
+                </svg>
+              </span>
+              <span class="theme-item-label">Lemon Ice-Cream</span>
+            </li>
+          </ul>
+          <select id="quickThemeSelector" style="display:none;" aria-hidden="true">
+            <option value="nordic">Nordic Blue</option>
+            <option value="forest">Forest & Moss</option>
+            <option value="sunset">Sunset Coral</option>
+            <option value="lavender">Lavender Mist</option>
+            <option value="midnight">Midnight Dark</option>
+            <option value="lemon">Lemon Ice-Cream</option>
+          </select>
+        </div>
+
+        <!-- Botón de Notificaciones / Recordatorios -->
+        <button id="btnToggleNotifications" class="btn-notification" title="Activar notificaciones de recordatorio">
+          <span id="notifIcon" class="btn-icon-wrap">
+            <svg class="btn-icon-svg" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+          </span>
+          <span id="notifText">Recordatorios</span>
+        </button>
+
+        <!-- Botones de conexión y creación -->
+        <button id="btnOpenNewDbModal" class="btn-primary" title="Crea un archivo nuevo con tu perfil">
+          <svg class="btn-icon-svg" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          <span>Nueva Agenda</span>
+        </button>
+        <button id="btnOpenFile" class="btn-secondary" title="Abrir agenda existente (.json)">
+          <svg class="btn-icon-svg" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Conectar Agenda</span>
+        </button>
+        <button id="btnRefresh" class="btn-secondary" title="Recargar archivo del disco" style="display:none;">
+          <svg class="btn-icon-svg" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="23 4 23 10 17 10"/>
+            <polyline points="1 20 1 14 7 14"/>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+          </svg>
+          <span>Refrescar</span>
+        </button>
+        <button id="btnDownloadBackup" class="btn-secondary" title="Descargar copia de la agenda en formato JSON" style="display:none;">
+          <svg class="btn-icon-svg" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Descargar JSON</span>
+        </button>
+
+        <!-- Input para carga en navegadores sin File System Access API (iOS Safari, Firefox, Android) -->
+        <input type="file" id="fallbackFileInput" accept=".json,application/json,text/plain,text/json" style="position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none; clip: rect(0,0,0,0);">
+      </div>
+    </header>
+
+    <!-- Estado de Conexión Discreto (Con botón Modo Libreta a la derecha) -->
+    <div class="discrete-status-bar" id="fileStatusBar">
+      <div class="discrete-status-left">
+        <div class="discrete-status-inner">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusText" class="discrete-status-text">Sin archivo conectado</span>
+        </div>
+        <button id="btnReconnect" class="btn-discrete-reconnect" style="display:none;">
+          <svg class="btn-icon-svg" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 2l-2 2m-1.5 1.5L16 7l-2 2-2-2-2 2-2-2-3.5 3.5a6 6 0 1 0 8.5 8.5L22 4z"/>
+            <circle cx="7.5" cy="16.5" r="1.5"/>
+          </svg>
+          <span>Reautorizar</span>
+        </button>
+      </div>
+      <div class="discrete-status-right" style="display:flex; align-items:center; gap:8px;">
+        <button id="btnStartTour" class="btn-notebook-toggle" title="Iniciar recorrido guiado interactivo">
+          <svg class="btn-icon-svg" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+          <span>Guía Rápida</span>
+        </button>
+        <a href="manual_de_usuario.html" target="_blank" class="btn-notebook-toggle" title="Abrir Manual de Usuario Oficial" style="text-decoration:none;">
+          <svg class="btn-icon-svg" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span>Manual</span>
+        </a>
+        <button id="btnToggleNotebook" class="btn-notebook-toggle" title="Alternar panel de enfoque, prioridades y hábitos">
+          <svg class="btn-icon-svg" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+          <span>Modo Libreta</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navegación de Semanas con Fechas Reales -->
+    <div class="week-navigation-bar">
+      <button id="btnPrevWeek" class="btn-week-nav" title="Semana anterior" aria-label="Semana anterior">◀</button>
+      <div class="week-display">
+        <span id="weekLabel" class="week-label">Semana en curso</span>
+        <button id="btnCurrentWeek" class="btn-today-badge" title="Ir a la semana de hoy">Hoy</button>
+      </div>
+      <button id="btnNextWeek" class="btn-week-nav" title="Semana siguiente" aria-label="Semana siguiente">▶</button>
+    </div>
+
+    <!-- Barra de Progreso Semanal -->
+    <div class="progress-card">
+      <div class="progress-header">
+        <span>Progreso Semanal</span>
+        <strong id="progressSummaryText">0 de 0 tareas completadas (0%)</strong>
+      </div>
+      <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="progress-fill" id="progressBarFill"></div>
+      </div>
+    </div>
+
+    <!-- Barra de Búsqueda, Filtros y Pestañas para Móvil -->
+    <div class="controls-row">
+      <div class="search-box-wrapper">
+        <span class="search-icon" aria-hidden="true">
+          <svg class="search-svg-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </span>
+        <input type="text" id="searchInput" class="search-box" placeholder="Buscar por título, categoría o nota..." aria-label="Buscar tareas">
+      </div>
+
+      <!-- Píldoras / Chips de Filtro por Categoría -->
+      <div class="category-chips-scroll" id="categoryChips" role="group" aria-label="Filtro de categorías">
+        <button class="chip-btn active" data-category="all">
+          <svg class="chip-icon-svg" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="14" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
+          </svg>
+          <span>Todas</span>
+        </button>
+        <button class="chip-btn chip-trabajo" data-category="trabajo">
+          <svg class="chip-icon-svg" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+          </svg>
+          <span>Trabajo</span>
+        </button>
+        <button class="chip-btn chip-estudio" data-category="estudio">
+          <svg class="chip-icon-svg" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          <span>Estudio</span>
+        </button>
+        <button class="chip-btn chip-personal" data-category="personal">
+          <svg class="chip-icon-svg" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+          <span>Personal</span>
+        </button>
+        <button class="chip-btn chip-salud" data-category="salud">
+          <svg class="chip-icon-svg" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span>Salud</span>
+        </button>
+        <button class="chip-btn chip-completed" data-category="completed">
+          <svg class="chip-icon-svg" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          <span>Hechas</span>
+        </button>
+      </div>
+      
+      <!-- Pestañas que se muestran en pantallas móviles -->
+      <div class="day-tabs" id="dayTabsContainer" role="tablist" aria-label="Días de la semana">
+        <button class="day-tab-btn active" data-day="lunes" role="tab" aria-selected="true"><span class="tab-name">Lun</span><span class="tab-num" id="tabnum-lunes"></span></button>
+        <button class="day-tab-btn" data-day="martes" role="tab" aria-selected="false"><span class="tab-name">Mar</span><span class="tab-num" id="tabnum-martes"></span></button>
+        <button class="day-tab-btn" data-day="miercoles" role="tab" aria-selected="false"><span class="tab-name">Mié</span><span class="tab-num" id="tabnum-miercoles"></span></button>
+        <button class="day-tab-btn" data-day="jueves" role="tab" aria-selected="false"><span class="tab-name">Jue</span><span class="tab-num" id="tabnum-jueves"></span></button>
+        <button class="day-tab-btn" data-day="viernes" role="tab" aria-selected="false"><span class="tab-name">Vie</span><span class="tab-num" id="tabnum-viernes"></span></button>
+        <button class="day-tab-btn" data-day="sabado" role="tab" aria-selected="false"><span class="tab-name">Sáb</span><span class="tab-num" id="tabnum-sabado"></span></button>
+        <button class="day-tab-btn" data-day="domingo" role="tab" aria-selected="false"><span class="tab-name">Dom</span><span class="tab-num" id="tabnum-domingo"></span></button>
+      </div>
+    </div>
+
+    <!-- Telón translúcido para el panel flotante de Modo Libreta -->
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+    <!-- Contenedor Principal -->
+    <div class="planner-layout-container" id="plannerLayout">
+
+      <!-- ======================================================================
+           PANEL LATERAL FLOTANTE (HOJA IZQUIERDA): ENFOQUE, PRIORIDADES, NOTAS Y HÁBITOS
+           ====================================================================== -->
+      <aside class="left-planner-page" id="leftPlannerPage" aria-label="Panel lateral: Planificación semanal y hábitos">
+        
+        <!-- Cabecera del Panel Flotante -->
+        <div class="drawer-header">
+          <div class="drawer-header-title">
+            <span style="display:inline-flex; align-items:center; gap:6px;">
+              <svg class="btn-icon-svg" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+              Modo Libreta
+            </span>
+            <span class="drawer-subtitle">Enfoque, prioridades y hábitos</span>
+          </div>
+          <button id="btnCloseDrawer" class="btn-close-drawer" title="Cerrar panel" aria-label="Cerrar panel">✕</button>
+        </div>
+        
+        <!-- 1. Planificación Semanal (Objetivo / Foco) -->
+        <section class="left-section-card">
+          <div class="left-card-header">
+            <span class="left-card-title">
+              <svg class="left-card-icon icon-target" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="12" r="6"/>
+                <circle cx="12" cy="12" r="2"/>
+              </svg>
+              <span>Planificación Semanal</span>
+            </span>
+          </div>
+          <textarea id="weeklyFocusInput" class="left-textarea focus-textarea" placeholder="Establece el lema u objetivo principal para esta semana..."></textarea>
+        </section>
+
+        <!-- 2. Prioridades (Top 3-4 metas clave) -->
+        <section class="left-section-card">
+          <div class="left-card-header">
+            <span class="left-card-title">
+              <svg class="left-card-icon icon-star" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+              <span>Prioridades</span>
+            </span>
+            <span class="left-card-hint">Metas ineludibles</span>
+          </div>
+          <div class="priorities-list" id="prioritiesList"></div>
+          <form id="addPriorityForm" class="left-quick-add-form">
+            <input type="text" id="newPriorityInput" class="left-quick-input" placeholder="Añadir prioridad..." required>
+            <button type="submit" class="btn-quick-add" title="Agregar prioridad">
+              <svg class="btn-icon-svg" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </button>
+          </form>
+        </section>
+
+        <!-- 3. Lista de Tareas General (Backlog semanal con Drag & Drop) -->
+        <section class="left-section-card">
+          <div class="left-card-header">
+            <span class="left-card-title">
+              <svg class="left-card-icon icon-tasks" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                <path d="M9 12h6"/>
+                <path d="M9 16h6"/>
+              </svg>
+              <span>Lista de Tareas</span>
+            </span>
+            <span class="left-card-hint">Arrastra a un día</span>
+          </div>
+          <div class="general-tasks-list" id="generalTasksList"></div>
+          <form id="addGeneralTaskForm" class="left-quick-add-form">
+            <input type="text" id="newGeneralTaskInput" class="left-quick-input" placeholder="Tarea pendiente general..." required>
+            <button type="submit" class="btn-quick-add" title="Agregar tarea">
+              <svg class="btn-icon-svg" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </button>
+          </form>
+        </section>
+
+        <!-- 4. Notas -->
+        <section class="left-section-card">
+          <div class="left-card-header">
+            <span class="left-card-title">
+              <svg class="left-card-icon icon-notes" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10 9 9 9 8 9"/>
+              </svg>
+              <span>Notas</span>
+            </span>
+          </div>
+          <textarea id="weeklyNotesInput" class="left-textarea notes-textarea" placeholder="Anotaciones, reflexiones o recordatorios..."></textarea>
+        </section>
+
+        <!-- 5. Rastreador de Hábitos (Habit Tracker semanal) -->
+        <section class="left-section-card">
+          <div class="left-card-header">
+            <span class="left-card-title">
+              <svg class="left-card-icon icon-habits" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="23 4 23 10 17 10"/>
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+              </svg>
+              <span>Hábitos</span>
+            </span>
+            <span class="left-card-hint">L M M J V S D</span>
+          </div>
+          <div class="habits-table-container" id="habitsContainer"></div>
+          <form id="addHabitForm" class="left-quick-add-form">
+            <input type="text" id="newHabitInput" class="left-quick-input" placeholder="Nuevo hábito (ej: Leer 20m)..." required>
+            <button type="submit" class="btn-quick-add" title="Agregar hábito">
+              <svg class="btn-icon-svg" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </button>
+          </form>
+        </section>
+
+      </aside>
+
+      <!-- ======================================================================
+           HOJA DERECHA: CUADRÍCULA SEMANAL (LUNES A DOMINGO)
+           ====================================================================== -->
+      <main class="planner-grid" id="plannerGrid">
+        
+        <!-- Lunes -->
+        <section class="day-column active-mobile-day" data-day="lunes">
+          <div class="day-column-header">
+            <div class="day-header-title-wrap">
+              <div class="day-name-date">
+                <span class="day-title">Lunes</span>
+                <span class="day-date-badge" id="date-lunes"></span>
+              </div>
+              <span class="day-badge-count" id="count-lunes">0 tareas</span>
+            </div>
+            <button class="btn-add-day-task" data-day="lunes" title="Añadir tarea el Lunes" aria-label="Añadir tarea el Lunes">
+              <svg class="btn-add-svg" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </button>
+          </div>
+          <div class="task-list" id="list-lunes"></div>
+        </section>
+
+        <!-- Martes -->
+        <section class="day-column" data-day="martes">
+          <div class="day-column-header">
+            <div class="day-header-title-wrap">
+              <div class="day-name-date">
+                <span class="day-title">Martes</span>
+                <span class="day-date-badge" id="date-martes"></span>
+              </div>
+              <span class="day-badge-count" id="count-martes">0 tareas</span>
+            </div>
+            <button class="btn-add-day-task" data-day="martes" title="Añadir tarea el Martes" aria-label="Añadir tarea el Martes">
+              <svg class="btn-add-svg" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </button>
+          </div>
+          <div class="task-list" id="list-martes"></div>
+        </section>
+
+        <!-- Miércoles -->
+        <section class="day-column" data-day="miercoles">
+          <div class="day-column-header">
+            <div class="day-header-title-wrap">
+              <div class="day-name-date">
+                <span class="day-title">Miércoles</span>
+                <span class="day-date-badge" id="date-miercoles"></span>
+              </div>
+              <span class="day-badge-count" id="count-miercoles">0 tareas</span>
+            </div>
+            <button class="btn-add-day-task" data-day="miercoles" title="Añadir tarea el Miércoles" aria-label="Añadir tarea el Miércoles">
+              <svg class="btn-add-svg" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </button>
+          </div>
+          <div class="task-list" id="list-miercoles"></div>
+        </section>
+
+        <!-- Jueves -->
+        <section class="day-column" data-day="jueves">
+          <div class="day-column-header">
+            <div class="day-header-title-wrap">
+              <div class="day-name-date">
+                <span class="day-title">Jueves</span>
+                <span class="day-date-badge" id="date-jueves"></span>
+              </div>
+              <span class="day-badge-count" id="count-jueves">0 tareas</span>
+            </div>
+            <button class="btn-add-day-task" data-day="jueves" title="Añadir tarea el Jueves" aria-label="Añadir tarea el Jueves">
+              <svg class="btn-add-svg" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </button>
+          </div>
+          <div class="task-list" id="list-jueves"></div>
+        </section>
+
+        <!-- Viernes -->
+        <section class="day-column" data-day="viernes">
+          <div class="day-column-header">
+            <div class="day-header-title-wrap">
+              <div class="day-name-date">
+                <span class="day-title">Viernes</span>
+                <span class="day-date-badge" id="date-viernes"></span>
+              </div>
+              <span class="day-badge-count" id="count-viernes">0 tareas</span>
+            </div>
+            <button class="btn-add-day-task" data-day="viernes" title="Añadir tarea el Viernes" aria-label="Añadir tarea el Viernes">
+              <svg class="btn-add-svg" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </button>
+          </div>
+          <div class="task-list" id="list-viernes"></div>
+        </section>
+
+        <!-- Sábado -->
+        <section class="day-column" data-day="sabado">
+          <div class="day-column-header">
+            <div class="day-header-title-wrap">
+              <div class="day-name-date">
+                <span class="day-title">Sábado</span>
+                <span class="day-date-badge" id="date-sabado"></span>
+              </div>
+              <span class="day-badge-count" id="count-sabado">0 tareas</span>
+            </div>
+            <button class="btn-add-day-task" data-day="sabado" title="Añadir tarea el Sábado" aria-label="Añadir tarea el Sábado">
+              <svg class="btn-add-svg" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </button>
+          </div>
+          <div class="task-list" id="list-sabado"></div>
+        </section>
+
+        <!-- Domingo -->
+        <section class="day-column" data-day="domingo">
+          <div class="day-column-header">
+            <div class="day-header-title-wrap">
+              <div class="day-name-date">
+                <span class="day-title">Domingo</span>
+                <span class="day-date-badge" id="date-domingo"></span>
+              </div>
+              <span class="day-badge-count" id="count-domingo">0 tareas</span>
+            </div>
+            <button class="btn-add-day-task" data-day="domingo" title="Añadir tarea el Domingo" aria-label="Añadir tarea el Domingo">
+              <svg class="btn-add-svg" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </button>
+          </div>
+          <div class="task-list" id="list-domingo"></div>
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 1: CREAR NUEVA AGENDA (BASE DE DATOS CON PERFIL)
+       ========================================================================== -->
+  <div class="modal-backdrop" id="newDbModal" role="dialog" aria-modal="true" aria-labelledby="modalNewDbTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalNewDbTitle">Crear Nueva Agenda</h3>
+        <button id="btnCloseDbModal" class="btn-close-modal" aria-label="Cerrar ventana">✕</button>
+      </div>
+
+      <form id="newDbForm" style="display:flex; flex-direction:column; gap:14px;">
+        <div class="form-group">
+          <label class="form-label" for="userNameInput">¿Cómo te llamas?</label>
+          <input type="text" id="userNameInput" class="form-input" required placeholder="Ej: Valentina">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="userBirthdateInput">Fecha de Nacimiento</label>
+          <input type="date" id="userBirthdateInput" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Paleta de Colores Preferida</label>
+          <div class="theme-picker-grid">
+            <div class="theme-picker-option selected" data-theme="nordic">
+              <span class="theme-color-preview" style="background:#2b6cb0;"></span>
+              Nordic Blue
+            </div>
+            <div class="theme-picker-option" data-theme="forest">
+              <span class="theme-color-preview" style="background:#2d6a4f;"></span>
+              Forest & Moss
+            </div>
+            <div class="theme-picker-option" data-theme="sunset">
+              <span class="theme-color-preview" style="background:#ea580c;"></span>
+              Sunset Coral
+            </div>
+            <div class="theme-picker-option" data-theme="lavender">
+              <span class="theme-color-preview" style="background:#9333ea;"></span>
+              Lavender Mist
+            </div>
+            <div class="theme-picker-option" data-theme="lemon">
+              <span class="theme-color-preview" style="background:#f5cf22; border:1px solid #d9a006;"></span>
+              Lemon Ice-Cream
+            </div>
+            <div class="theme-picker-option" data-theme="midnight">
+              <span class="theme-color-preview" style="background:#151c2c; border:1px solid #3b82f6;"></span>
+              Midnight Dark
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" id="btnCancelDbModal" class="btn-secondary">Cancelar</button>
+          <button type="submit" class="btn-primary">Guardar Archivo en Disco</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 2: CREAR / EDITAR TAREA
+       ========================================================================== -->
+  <div class="modal-backdrop" id="taskModal" role="dialog" aria-modal="true" aria-labelledby="modalTaskTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalTaskTitle">Nueva Tarea</h3>
+        <button id="btnCloseTaskModal" class="btn-close-modal" aria-label="Cerrar ventana">✕</button>
+      </div>
+
+      <form id="taskForm" style="display:flex; flex-direction:column; gap:14px;">
+        <input type="hidden" id="taskFormId">
+
+        <div class="form-group">
+          <label class="form-label" for="taskFormTitle">Título de la actividad *</label>
+          <input type="text" id="taskFormTitle" class="form-input" required placeholder="Ej: Reunión con cliente o Sesión de estudio">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="taskFormDescription">Notas o detalles (Opcional)</label>
+          <textarea id="taskFormDescription" class="form-textarea" placeholder="Añade notas, enlaces o preparativos..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="taskFormDay">Día de la semana *</label>
+            <select id="taskFormDay" class="form-select" required>
+              <option value="lunes">Lunes</option>
+              <option value="martes">Martes</option>
+              <option value="miercoles">Miércoles</option>
+              <option value="jueves">Jueves</option>
+              <option value="viernes">Viernes</option>
+              <option value="sabado">Sábado</option>
+              <option value="domingo">Domingo</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" id="taskCategoryLabel">Categoría</label>
+            <div class="custom-category-dropdown" id="categoryDropdown">
+              <button type="button" class="category-dropdown-trigger" id="categoryDropdownTrigger" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="taskCategoryLabel categoryDropdownTrigger">
+                <span class="category-trigger-left">
+                  <span class="category-icon-slot" id="categoryCurrentIcon">
+                    <svg class="category-svg-icon cat-trabajo" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                    </svg>
+                  </span>
+                  <span class="category-label-slot" id="categoryCurrentLabel">Trabajo</span>
+                </span>
+                <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </button>
+              <ul class="category-dropdown-menu" id="categoryDropdownMenu" role="listbox" aria-labelledby="taskCategoryLabel">
+                <li class="category-dropdown-item selected" role="option" data-category="trabajo" aria-selected="true">
+                  <span class="category-item-icon">
+                    <svg class="category-svg-icon cat-trabajo" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                    </svg>
+                  </span>
+                  <span class="category-item-label">Trabajo</span>
+                </li>
+                <li class="category-dropdown-item" role="option" data-category="estudio" aria-selected="false">
+                  <span class="category-item-icon">
+                    <svg class="category-svg-icon cat-estudio" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                  </span>
+                  <span class="category-item-label">Estudio</span>
+                </li>
+                <li class="category-dropdown-item" role="option" data-category="personal" aria-selected="false">
+                  <span class="category-item-icon">
+                    <svg class="category-svg-icon cat-personal" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                  </span>
+                  <span class="category-item-label">Personal</span>
+                </li>
+                <li class="category-dropdown-item" role="option" data-category="salud" aria-selected="false">
+                  <span class="category-item-icon">
+                    <svg class="category-svg-icon cat-salud" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                  </span>
+                  <span class="category-item-label">Salud</span>
+                </li>
+              </ul>
+              <select id="taskFormCategory" style="display:none;" aria-hidden="true">
+                <option value="trabajo">Trabajo</option>
+                <option value="estudio">Estudio</option>
+                <option value="personal">Personal</option>
+                <option value="salud">Salud</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="taskFormStartTime">Hora de inicio</label>
+            <input type="time" id="taskFormStartTime" class="form-input">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="taskFormEndTime">Hora de fin</label>
+            <input type="time" id="taskFormEndTime" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="taskFormPriority">Prioridad</label>
+            <select id="taskFormPriority" class="form-select">
+              <option value="alta">🔴 Alta</option>
+              <option value="media" selected>🟡 Media</option>
+              <option value="baja">🟢 Baja</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="taskFormReminder">Recordatorio</label>
+            <select id="taskFormReminder" class="form-select">
+              <option value="0">Sin recordatorio</option>
+              <option value="5">5 minutos antes</option>
+              <option value="10" selected>10 minutos antes</option>
+              <option value="15">15 minutos antes</option>
+              <option value="30">30 minutos antes</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" id="btnCancelTaskModal" class="btn-secondary">Cancelar</button>
+          <button type="submit" class="btn-primary" id="btnSubmitTask">Guardar Tarea</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 3: CONFIRMACIÓN DE ELIMINACIÓN
+       ========================================================================== -->
+  <div class="modal-backdrop" id="deleteConfirmModal" role="dialog" aria-modal="true" aria-labelledby="modalDeleteTitle">
+    <div class="modal-card" style="max-width: 380px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalDeleteTitle">¿Eliminar Tarea?</h3>
+        <button id="btnCloseDeleteModal" class="btn-close-modal" aria-label="Cerrar ventana">✕</button>
+      </div>
+      <p style="font-size:0.85rem; color:var(--text-muted);" id="deleteConfirmMessage">
+        ¿Estás seguro de que deseas eliminar esta tarea? Esta acción actualizará tu archivo de agenda.
+      </p>
+      <div class="modal-actions">
+        <button type="button" id="btnCancelDelete" class="btn-secondary">Cancelar</button>
+        <button type="button" id="btnConfirmDelete" class="btn-primary" style="background-color:#ef4444; border-color:#dc2626;">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 4: BIENVENIDA Y OFRECIMIENTO DE TOUR GUIADO
+       ========================================================================== -->
+  <div class="modal-backdrop" id="welcomeTourModal" role="dialog" aria-modal="true" aria-labelledby="welcomeTourTitle">
+    <div class="modal-card" style="max-width: 440px; text-align: center;">
+      <div style="font-size: 2.5rem; margin-bottom: 8px;">👋🍋</div>
+      <h3 class="modal-title" id="welcomeTourTitle" style="font-size: 1.35rem; justify-content: center;">
+        ¡Bienvenido a LICWeekly Planner!
+      </h3>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin: 12px 0 20px 0; line-height: 1.55;">
+        Tu agenda semanal con <strong>privacidad total (Local-First)</strong> y funcionamiento 100% offline.<br><br>
+        ¿Deseas hacer un breve <strong>recorrido guiado de 1 minuto</strong> para conocer las funciones principales?
+      </p>
+      <div class="modal-actions" style="justify-content: center; gap: 10px;">
+        <button type="button" id="btnSkipWelcomeTour" class="btn-secondary">Explorar por mi cuenta</button>
+        <button type="button" id="btnAcceptWelcomeTour" class="btn-primary" style="font-weight: 700;">Comenzar Tour</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       INTERFAZ DE RECORRIDO GUIADO (ONBOARDING TOUR OVERLAY)
+       ========================================================================== -->
+  <div id="tourOverlay" class="tour-overlay" aria-hidden="true" style="display:none;">
+    <!-- Máscara de foco / Spotlight -->
+    <div id="tourSpotlight" class="tour-spotlight"></div>
+
+    <!-- Tarjeta flotante interactiva -->
+    <div id="tourCard" class="tour-card" role="dialog" aria-modal="true" aria-labelledby="tourTitle">
+      <div class="tour-card-header">
+        <span class="tour-step-badge" id="tourStepBadge">Paso 1 de 6</span>
+        <button id="btnTourClose" class="tour-btn-close" aria-label="Cerrar recorrido">✕</button>
+      </div>
+      <div class="tour-card-body">
+        <h4 class="tour-title" id="tourTitle">Bienvenido</h4>
+        <p class="tour-desc" id="tourDesc">Descripción del paso...</p>
+      </div>
+      <div class="tour-card-footer">
+        <button id="btnTourSkip" class="tour-btn-link">Omitir</button>
+        <div class="tour-nav-group">
+          <button id="btnTourPrev" class="btn-secondary" style="padding: 6px 12px; font-size: 0.8rem;">Anterior</button>
+          <button id="btnTourNext" class="btn-primary" style="padding: 6px 14px; font-size: 0.8rem; font-weight: 700;">Siguiente</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       CONTENEDOR DE AVISOS FLOTANTES (TOAST NOTIFICATIONS)
+       ========================================================================== -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Lógica modular de la aplicación -->
+  <script src="app.js"></script>
+</body>
+</html>
