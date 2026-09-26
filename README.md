@@ -18,16 +18,6 @@
 
 ---
 
-## 🌟 Novedades y Actualizaciones Recientes
-
-* **🧭 Recorrido Guiado Interactivo (Onboarding Tour):** Bienvenida guiada automática para usuarios que abren la aplicación por primera vez, con foco visual (*spotlight*) interactivo, navegación por pasos, soporte de teclado (`←` / `→` / `Esc`) y botón de **"Guía Rápida"** para volver a reproducirlo en cualquier momento.
-* **🍋 Nuevo Tema "Lemon Ice-Cream":** Sexta paleta cromática inspirada en helado de limón artesanal (amarillo limón vibrante, crema de vainilla suave y azul marino profundo) con su respectivo icono vectorial de cono y hojita cítrica en el menú desplegable.
-* **🖼️ Identidad Oficial & Logo Vectorizado:** Integración del logotipo e isologo oficial de LICWeekly Planner con fondo transparente adaptativo para todos los temas claro/oscuro, junto con favicons multiresolución e iconos de alta fidelidad para PWA (`img/`).
-* **📖 Manual de Usuario Profesional en HTML ([manual_de_usuario.html](manual_de_usuario.html)):** Sustitución del antiguo manual plano por una guía visual interactiva completa con tablas comparativas, diagramas de flujo y soporte de impresión.
-* **📁 Estructura Limpia del Proyecto:** Centralización y ordenamiento de todos los recursos gráficos dentro de la carpeta `img/`.
-
----
-
 ## ✨ Características Principales
 
 ### 🔒 1. Privacidad Total & Filosofía Local-First
