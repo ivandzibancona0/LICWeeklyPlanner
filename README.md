@@ -38,12 +38,12 @@
 
 ### 🎨 3. 6 Temas Visuales con Iconografía Vectorial SVG
 Cambia la paleta de colores al instante desde el selector desplegable con iconos vectoriales minimalistas (`stroke-width: 2.2`):
-1. ❄️ **Nordic Blue** *(Predeterminado)*: Azules limpios, sobrios y profesionales.
-2. 🌲 **Forest & Moss**: Tonos orgánicos de naturaleza, verdes bosque y musgo.
-3. 🌅 **Sunset Coral**: Cálidos anaranjados y terracota energizantes.
-4. 🪻 **Lavender Mist**: Púrpuras y violetas suaves de alta serenidad.
-5. 🌙 **Midnight Dark**: Modo oscuro profundo de alto contraste adaptativo con luminancias pastel para trabajo nocturno.
-6. 🍋 **Lemon Ice-Cream**: Amarillo limón radiante, crema suave y detalles en azul marino profundo.
+1. 🍋 **Lemon Ice-Cream** *(Predeterminado)*: Amarillo limón radiante, crema suave y detalles en azul marino profundo.
+2. ❄️ **Nordic Blue**: Azules limpios, sobrios y profesionales.
+3. 🌲 **Forest & Moss**: Tonos orgánicos de naturaleza, verdes bosque y musgo.
+4. 🌅 **Sunset Coral**: Cálidos anaranjados y terracota energizantes.
+5. 🪻 **Lavender Mist**: Púrpuras y violetas suaves de alta serenidad.
+6. 🌙 **Midnight Dark**: Modo oscuro profundo de alto contraste adaptativo con luminancias pastel para trabajo nocturno.
 
 ---
 

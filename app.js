@@ -12,7 +12,7 @@
 let currentTasks = [];
 let currentProfile = null;
 let activeFileHandle = null;
-let selectedModalTheme = 'nordic';
+let selectedModalTheme = 'lemon';
 let currentFilterText = '';
 let activeCategoryFilter = 'all';
 let currentMobileDay = 'lunes';
@@ -304,6 +304,8 @@ function loadDataIntoState(parsed) {
     setAppTheme(currentProfile.theme);
     const themeSelect = document.getElementById('quickThemeSelector');
     if (themeSelect) themeSelect.value = currentProfile.theme;
+  } else {
+    setAppTheme(document.documentElement.getAttribute('data-theme') || 'lemon');
   }
 
   renderPersonalizedHeader(currentProfile);
@@ -339,7 +341,7 @@ async function saveCurrentDataToFile() {
     profile: currentProfile || {
       name: 'Usuario',
       birthdate: '',
-      theme: document.documentElement.getAttribute('data-theme') || 'nordic',
+      theme: document.documentElement.getAttribute('data-theme') || 'lemon',
       updatedAt: new Date().toISOString()
     },
     tasks: currentTasks,
@@ -559,7 +561,7 @@ function downloadJsonBackup() {
     profile: currentProfile || {
       name: 'Usuario',
       birthdate: '',
-      theme: document.documentElement.getAttribute('data-theme') || 'nordic',
+      theme: document.documentElement.getAttribute('data-theme') || 'lemon',
       exportedAt: new Date().toISOString()
     },
     tasks: currentTasks,
@@ -1136,8 +1138,8 @@ const THEME_ICONS = {
 };
 
 function updateThemeDropdownUI(themeName) {
-  const name = THEME_NAMES[themeName] || 'Nordic Blue';
-  const iconSvg = THEME_ICONS[themeName] || THEME_ICONS.nordic;
+  const name = THEME_NAMES[themeName] || 'Lemon Ice-Cream';
+  const iconSvg = THEME_ICONS[themeName] || THEME_ICONS.lemon;
 
   const currentIcon = document.getElementById('themeCurrentIcon');
   if (currentIcon) currentIcon.innerHTML = iconSvg;
@@ -1160,7 +1162,7 @@ function updateThemeDropdownUI(themeName) {
 
 function setAppTheme(themeName) {
   const validThemes = ['nordic', 'forest', 'sunset', 'lavender', 'midnight', 'lemon'];
-  const validTheme = validThemes.includes(themeName) ? themeName : 'nordic';
+  const validTheme = validThemes.includes(themeName) ? themeName : 'lemon';
   document.documentElement.setAttribute('data-theme', validTheme);
   updateThemeDropdownUI(validTheme);
 }
@@ -2200,6 +2202,7 @@ function checkFirstVisitForTour() {
    11. INICIALIZACIÓN
    -------------------------------------------------------------------------- */
 window.addEventListener('DOMContentLoaded', () => {
+  setAppTheme(document.documentElement.getAttribute('data-theme') || 'lemon');
   setupEvents();
   setupLeftPlannerPageListeners();
   initTourListeners();

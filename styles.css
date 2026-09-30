@@ -18,7 +18,7 @@
   --logo-filter: none;
 }
 
-/* Tema 1: Nordic Blue (Por defecto) */
+/* Tema 1: Nordic Blue */
 html[data-theme="nordic"] {
   --bg-app: #f0f4f8;
   --bg-surface: #ffffff;
@@ -168,8 +168,9 @@ html[data-theme="midnight"] {
   --logo-filter: drop-shadow(0 0 10px rgba(83, 184, 202, 0.4)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5)) brightness(1.08);
 }
 
-/* Tema 6: Lemon Ice-Cream (Helado de Limón) */
-html[data-theme="lemon"] {
+/* Tema 6: Lemon Ice-Cream (Por defecto) */
+html[data-theme="lemon"],
+html:not([data-theme]) {
   --bg-app: #fffdf7;
   --bg-surface: #ffffff;
   --bg-header: rgba(255, 253, 247, 0.94);
@@ -198,18 +199,21 @@ html[data-theme="lemon"] {
   --logo-filter: drop-shadow(0 1px 2px rgba(18, 37, 67, 0.08));
 }
 
-html[data-theme="lemon"] .btn-primary {
+html[data-theme="lemon"] .btn-primary,
+html:not([data-theme]) .btn-primary {
   background-color: #f5cf22;
   color: #122543;
   border: 1px solid #e0b810;
   font-weight: 700;
 }
-html[data-theme="lemon"] .btn-primary:hover {
+html[data-theme="lemon"] .btn-primary:hover,
+html:not([data-theme]) .btn-primary:hover {
   background-color: #ebd028;
   border-color: #d1a807;
 }
 
-html[data-theme="lemon"] .progress-bar-fill {
+html[data-theme="lemon"] .progress-bar-fill,
+html:not([data-theme]) .progress-bar-fill {
   background: linear-gradient(90deg, #b4d93d, #f5cf22);
 }
 
@@ -573,7 +577,8 @@ html[data-theme="lavender"] .btn-notification.active {
   border-color: #d8b4fe;
   color: #6b21a8;
 }
-html[data-theme="lemon"] .btn-notification.active {
+html[data-theme="lemon"] .btn-notification.active,
+html:not([data-theme]) .btn-notification.active {
   background-color: #fef9c3;
   border-color: #fde047;
   color: #713f12;
@@ -2002,7 +2007,8 @@ html[data-theme="lavender"] .reminder-badge {
   border-color: #e9d5ff;
   color: #6b21a8;
 }
-html[data-theme="lemon"] .reminder-badge {
+html[data-theme="lemon"] .reminder-badge,
+html:not([data-theme]) .reminder-badge {
   background-color: #fef9c3;
   border-color: #fde047;
   color: #713f12;
